@@ -23,3 +23,6 @@ Example of calc file:
     Dim FileName, StrCRC32 as String
     FileName = "C:\Test_file_for_CRC32.txt"
     StrCRC32 = CRC32.CalcFile(FileName)
+    If Not StrCRC32 Then
+        Debug.Print "File not found!"
+    End If
