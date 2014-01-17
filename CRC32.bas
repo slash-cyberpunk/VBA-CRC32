@@ -291,11 +291,11 @@ End Function
 Public Function CalcFile(File As String) As String
   If Len(Dir$(File)) > 0 Then
     MaxSize$ = FileLen(File)
-    FileNumber% = FreeFile
+    FileNumber% = FreeFile()
     Open File For Binary Access Read As #FileNumber%
     For NextChar& = 1 To MaxSize$
         Seek #FileNumber%, NextChar&
-        Code$ = Code$ & Input(1, #1)
+        Code$ = Code$ & Input(1, #FileNumber%)
     Next NextChar&
     Close #FileNumber%
     modCrc& = Calc(Code$)
