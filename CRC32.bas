@@ -289,14 +289,18 @@ Public Function CalcStr(Stri As String) As String
 End Function
 
 Public Function CalcFile(File As String) As String
-  MaxSize$ = FileLen(File)
-  FileNumber% = FreeFile
-  Open File For Binary Access Read As #FileNumber%
-  For NextChar& = 1 To MaxSize$
-      Seek #1, NextChar&
-      Code$ = Code$ & Input(1, #1)
-  Next NextChar&
-  Close #
-  modCrc& = Calc(Code$)
-  CalcFile = CStr(Hex$(modCrc&))
+  If Len(Dir$(File)) > 0 Then
+    MaxSize$ = FileLen(File)
+    FileNumber% = FreeFile
+    Open File For Binary Access Read As #FileNumber%
+    For NextChar& = 1 To MaxSize$
+        Seek #1, NextChar&
+        Code$ = Code$ & Input(1, #1)
+    Next NextChar&
+    Close #
+    modCrc& = Calc(Code$)
+    CalcFile = CStr(Hex$(modCrc&))
+  Else
+    CalcFile = ""
+  End If
 End Function
