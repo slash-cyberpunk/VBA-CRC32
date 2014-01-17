@@ -1,5 +1,5 @@
+Private Const DefaultBufferSize& = 32768
 Private CRC_32_Tab(0 To 255) As Long
-Private Const MaxBufferSize& = 32768
 
 Private Sub CRCinit()
   CRC_32_Tab(0) = &H0
@@ -289,13 +289,13 @@ Public Function CalcStr(Stri As String) As String
   CalcStr = CStr(Hex$(Calc(Stri)))
 End Function
 
-Public Function CalcFile(File As String) As String
-  If Len(Dir$(File)) > 0 Then
+Public Function CalcFile(File As String, Optional BufferSize As Long = DefaultBufferSize&) As String
+  If Len(Dir$(File)) > 0 And BufferSize > 0 Then
     FileSize& = FileLen(File)
     FileNumber% = FreeFile()
     Open File For Binary Access Read As #FileNumber%
-    Buffer$ = String(MaxBufferSize&, 0)
-    While (FileSize& - Seek(FileNumber%) + 1) >= MaxBufferSize&
+    Buffer$ = String(BufferSize, 0)
+    While (FileSize& - Seek(FileNumber%) + 1) >= BufferSize
         Get #FileNumber%, , Buffer$
         Code$ = Code$ & Buffer$
     Wend
