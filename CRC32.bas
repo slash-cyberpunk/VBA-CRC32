@@ -297,7 +297,7 @@ Public Function CalcFile(File As String) As String
         Seek #1, NextChar&
         Code$ = Code$ & Input(1, #1)
     Next NextChar&
-    Close #
+    Close #FileNumber%
     modCrc& = Calc(Code$)
     CalcFile = CStr(Hex$(modCrc&))
   Else
