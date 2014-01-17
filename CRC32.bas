@@ -275,13 +275,13 @@ End Function
 
 Private Function Calc(Stri As String) As Long
   CRCinit
-  CRC& = &HFFFFFFFF
+  tCRC32& = &HFFFFFFFF
   For i& = 1 To Len(Stri)
     m& = Asc(Mid$(Stri, i&, 1))
-    n& = (CRC& Xor m&) And &HFF
-    CRC& = CRC_32_Tab(n&) Xor (Shr(CRC&, 8) And &HFFFFFF)
+    n& = (tCRC32& Xor m&) And &HFF
+    tCRC32& = CRC_32_Tab(n&) Xor (Shr(tCRC32&, 8) And &HFFFFFF)
   Next i&
-  Calc = -(CRC& + 1)
+  Calc = -(tCRC32& + 1)
 End Function
 
 Public Function CalcStr(Stri As String) As String
