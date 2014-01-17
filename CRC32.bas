@@ -294,7 +294,7 @@ Public Function CalcFile(File As String) As String
     FileNumber% = FreeFile
     Open File For Binary Access Read As #FileNumber%
     For NextChar& = 1 To MaxSize$
-        Seek #1, NextChar&
+        Seek #FileNumber%, NextChar&
         Code$ = Code$ & Input(1, #1)
     Next NextChar&
     Close #FileNumber%
